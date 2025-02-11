@@ -5,30 +5,30 @@ import subprocess
 def split_pcap_files(input_directory, output_directory, splitcap_path="SplitCap.exe", enable="mono",
                      parallel_sessions=1018, filter_string=None):
     """
-    分解指定路径及其子目录中的所有pcap文件到指定的文件夹
+    Split all pcap files in the specified path and its subdirectories into the specified folder
 
-    :param input_directory: 包含pcap文件的输入目录路径
-    :param output_directory: 输出目录路径，分解后的文件将存储在这里
-    :param splitcap_path: SplitCap可执行文件的路径
-    :param enable: 可执行文件的环境
-    :param parallel_sessions: 同时保持在内存中的并行会话数量
-    :param filter_string: 用于过滤文件的字符串，只有文件名包含这个字符串的文件才会被分割
+    :param input_directory: Input directory path containing pcap files
+    :param output_directory: Output directory path, where the split files will be stored
+    :param splitcap_path: Path to the SplitCap executable
+    :param enable: Environment for the executable
+    :param parallel_sessions: Number of parallel sessions to keep in memory at the same time
+    :param filter_string: String used to filter files, only files with this string in the file name will be split
     """
-    # 确保输出目录存在
+    # Make sure the output directory exists
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
-    # 遍历输入目录中的所有文件
+    # Loop through all files in the input directory
     for filename in os.listdir(input_directory):
         if filename.endswith(".pcap") and (filter_string is None or filter_string in filename):
             input_file_path = os.path.join(input_directory, filename)
-            # 为每个pcap文件创建一个单独的输出目录
+            # Create a separate output directory for each pcap file
             file_output_directory = os.path.join(output_directory, filename)
             if not os.path.exists(file_output_directory):
                 os.makedirs(file_output_directory)
-            # 构建SplitCap命令
+            # Build SplitCap command
             command = [enable, splitcap_path, "-r", input_file_path, "-o", file_output_directory, "-p", str(parallel_sessions)]
-            # 执行命令
+            # Execute command
             subprocess.run(command)
 
 

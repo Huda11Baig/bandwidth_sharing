@@ -14,7 +14,7 @@ import socket
 import time
 import random
 
-pcap_path="/path/to/pcap/"  # 分割0 1 的地方
+pcap_path="/path/to/pcap/"  # Split point between 0 and 1
 dataset_path='/path/to/dataset/'
 model_path='/path/to/model/'
 

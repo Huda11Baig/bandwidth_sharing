@@ -65,10 +65,10 @@ def generation(pcap_path,dataset_path):
         r_files = target_all_files
         for r_f in r_files:
 
-            print('正在处理:',r_f)
+            print('Processing:', r_f)
             feature_data = get_feature_flow(r_f)
             if feature_data==-1:
-                print('处理完成:',r_f)
+                print('Processing completed:', r_f)
                 continue
         
 
@@ -83,7 +83,7 @@ def generation(pcap_path,dataset_path):
             providers.append(provider if found else 'others_dataset')  
             X.append(feature_data)
             Y.append(int(key))
-            print('处理完成:',r_f)
+            print('Processing completed:', r_f)
         dataset['providers'] = providers  
     print('other dataset:')
     for provider,number in provider_number[0].items():   
